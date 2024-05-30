@@ -20,3 +20,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::apiResource('products', ProductController::class);
+
+// DO NOT EDIT BELOW THIS LINE, IT'S FOR TESTING ONLY
+Route::post('products/seed', [ProductController::class, 'seed'])->name('seed');
