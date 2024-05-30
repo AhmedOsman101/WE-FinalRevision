@@ -70,7 +70,7 @@ app.post("/", (req, res) => {
 		}
 		// success response
 		return res.json({
-			message: "product created successfully",
+			message: "Product created successfully",
 			data,
 		}); // data contains rows returned by server
 	});
@@ -108,7 +108,7 @@ app.put("/:id", (req, res) => {
 
 		// success response
 		return res.json({
-			message: "product updated successfully",
+			message: "Product updated successfully",
 		}); // data contains rows returned by server
 	});
 });
@@ -134,7 +134,7 @@ app.delete("/:id", (req, res) => {
 
 		// success response
 		return res.json({
-			message: "product deleted successfully",
+			message: "Product deleted successfully",
 		}); // product deleted successfully
 	});
 });
@@ -173,12 +173,11 @@ app.post("/seed", (req, res) => {
 ('Pet Surveillance Camera', 99.99, 'Interactive pet camera with treat dispenser and two-way audio.');
 `;
 	// SELECT all data from the database
-	db.query("SELECT * FROM `products`", (error, data) => {
+	db.query(query, (error, data) => {
 		if (!error) {
-			console.log(data);
-			return res.json({ data }); // data contains rows returned by server
+			return res.json({ message: "seeded successfully" }); // data contains rows returned by server
 		}
 		// return errors if any
-		return res.status(400).json({ error });
+		return res.status(500).json({ error });
 	});
 });
