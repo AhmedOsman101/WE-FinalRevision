@@ -39,7 +39,7 @@ app.get("/products/:id", (req, res) => {
 			// return errors if any
 			return res.status(404).json({ error: "Product was not found" });
 		}
-		return res.json({ products: data }); // data contains rows returned by server
+		return res.json({ product: data }); // data contains rows returned by server
 	});
 });
 
@@ -156,22 +156,7 @@ app.post("/seed", (req, res) => {
 ('Digital Safe', 89.99, 'Electronic safe with keypad entry and emergency override key.'),
 ('Floodlight Cam', 129.99, 'Outdoor security camera with built-in floodlights and siren.'),
 ('Smart Lock', 109.99, 'Keyless entry lock with remote access and activity log.'),
-('Driveway Monitor', 59.99, 'Wireless driveway alarm with adjustable range and sensitivity.'),
-('Panic Button', 19.99, 'Emergency panic button with silent alarm feature.'),
-('Glass Break Sensor', 34.99, 'Acoustic glass break sensor with instant mobile alerts.'),
-('Gatekeeper System', 249.99, 'Automated gate control system with remote operation.'),
-('Night Watch Floodlight', 79.99, 'Motion-activated LED floodlight with energy-saving features.'),
-('Perimeter Defense Kit', 299.99, 'Complete outdoor security system with cameras, lights, and sensors.'),
-('Surveillance Drone', 499.99, 'Autonomous surveillance drone with live video feed and GPS tracking.'),
-('Biometric Door Handle', 139.99, 'Fingerprint-activated door handle for secure access.'),
-('Solar-Powered Camera', 159.99, 'Eco-friendly security camera with solar panel and battery backup.'),
-('Remote Control Siren', 59.99, 'Loud siren with remote activation for deterrence and alerts.'),
-('Wireless Intercom System', 199.99, 'Full-duplex intercom system with secure digital communication.'),
-('Outdoor Motion Lights', 69.99, 'Weatherproof motion-activated lights for enhanced security.'),
-('Portable Alarm Kit', 79.99, 'Compact and portable alarm system for travel and temporary installations.'),
-('Key Tracker', 14.99, 'Bluetooth key finder with crowd-sourced location tracking.'),
-('Child Safety Monitor', 49.99, 'Wearable child monitor with GPS tracking and safe zone alerts.'),
-('Pet Surveillance Camera', 99.99, 'Interactive pet camera with treat dispenser and two-way audio.');
+('Driveway Monitor', 59.99, 'Wireless driveway alarm with adjustable range and sensitivity.')
 `;
 	// SELECT all data from the database
 	db.query(query, (error, data) => {
