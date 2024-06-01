@@ -26,7 +26,7 @@ class ProductController extends Controller {
     public function store(Request $request) {
         try {
             // create a new product
-            $product = Product::insert($request->all());
+            Product::insert($request->all());
 
             // return the product
             return response()->json([
