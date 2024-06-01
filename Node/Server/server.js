@@ -16,7 +16,7 @@ app.use(cors());
 app.use(express.json());
 
 // get all products
-app.get("/", (req, res) => {
+app.get("/products", (req, res) => {
 	// SELECT all data from the database
 	db.query("SELECT * FROM `products`", (error, data) => {
 		// check for errors
@@ -24,12 +24,12 @@ app.get("/", (req, res) => {
 			// return errors if any
 			return res.status(500).json({ error });
 		}
-		return res.json({ data }); // data contains rows returned by server
+		return res.json({ products: data }); // data contains rows returned by server
 	});
 });
 
 // get single product by id
-app.get("/:id", (req, res) => {
+app.get("/products/:id", (req, res) => {
 	// get the product's id from the url
 	const id = req.params.id;
 	// SELECT the data from the database
@@ -39,12 +39,12 @@ app.get("/:id", (req, res) => {
 			// return errors if any
 			return res.status(404).json({ error: "Product was not found" });
 		}
-		return res.json({ data }); // data contains rows returned by server
+		return res.json({ products: data }); // data contains rows returned by server
 	});
 });
 
 // Insert new product
-app.post("/", (req, res) => {
+app.post("/products", (req, res) => {
 	// get the data from the request body
 	const { name, price, description } = req.body;
 
@@ -77,7 +77,7 @@ app.post("/", (req, res) => {
 });
 
 // Update product's data
-app.put("/:id", (req, res) => {
+app.put("/products/:id", (req, res) => {
 	// get the product's id from the url
 	const id = req.params.id;
 
@@ -114,7 +114,7 @@ app.put("/:id", (req, res) => {
 });
 
 // Delete a product
-app.delete("/:id", (req, res) => {
+app.delete("/products/:id", (req, res) => {
 	// get the product's id from the url
 	const id = req.params.id;
 
