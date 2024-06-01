@@ -20,11 +20,11 @@ app.get("/", (req, res) => {
 	// SELECT all data from the database
 	db.query("SELECT * FROM `products`", (error, data) => {
 		// check for errors
-		if (!error) {
-			return res.json({ data }); // data contains rows returned by server
+		if (error) {
+			// return errors if any
+			return res.status(500).json({ error });
 		}
-		// return errors if any
-		return res.status(500).json({ error });
+		return res.json({ data }); // data contains rows returned by server
 	});
 });
 
@@ -35,11 +35,11 @@ app.get("/:id", (req, res) => {
 	// SELECT the data from the database
 	db.query("SELECT * FROM `products` WHERE `id` = ?", id, (error, data) => {
 		// check for errors
-		if (!error) {
-			return res.json({ data }); // data contains rows returned by server
+		if (error) {
+			// return errors if any
+			return res.status(404).json({ error: "Product was not found" });
 		}
-		// return errors if any
-		return res.status(404).json({ error: "Product was not found" });
+		return res.json({ data }); // data contains rows returned by server
 	});
 });
 
@@ -143,7 +143,8 @@ app.listen(PORT, () => {
 	console.log(`Server is running on http://localhost:${PORT}`);
 });
 
-// DO NOT look on this method, it's for testing purposes only
+// DO NOT EDIT BELOW THIS LINE, IT'S FOR TESTING ONLY
+
 app.post("/seed", (req, res) => {
 	const query = `INSERT INTO products (name, price, description) VALUES
 ('Security Pro Camera', 149.99, 'High-resolution indoor/outdoor security camera with night vision.'),
