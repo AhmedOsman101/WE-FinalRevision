@@ -1,3 +1,3 @@
 # Guide
 
-## Create a Database "final_revision" and enjoy 😘
+## Create a Database named `final_revision`, create table `products` with columns `id`, `name`, `price`, `description`, enjoy 😘
