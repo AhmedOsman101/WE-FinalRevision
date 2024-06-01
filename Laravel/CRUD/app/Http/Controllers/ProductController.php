@@ -9,128 +9,108 @@ use Throwable;
 
 class ProductController extends Controller {
     /**
-     * Display a listing of the resource.
+     * Display all products
+     * 
      */
     public function index() {
 
-        // get all the products
+        // Get all products from the database
         $products = Product::all();
 
-        // return results
-        return response()->json(compact('products'));
+        // Return the view with the products data
+        return view("AllProducts", compact('products'));
     }
 
     /**
      * Show the form for creating a new resource.
+     * 
      */
     public function create() {
-        //
+        // Return the view for creating a new product
+        return view('Create');
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created resource in database.
+     * 
      */
     public function store(Request $request) {
         try {
-            // create a new product
-            Product::insert($request->all());
+            // Create a new product with the request data
+            Product::create($request->all());
 
-            // return the product
-            return response()->json([
-                "message" => "Created successfully"
-            ]);
+            // Redirect to the products index page
+            return redirect()->route('products.index');
         } catch (Throwable $error) {
-            // catch any errors and return it
-            return response()->json(["error" => $error], 500);
-        }
-    }
-
-
-    /**
-     * Display the specified resource.
-     */
-    public function show($id) {
-        try {
-            // get the product from the database by id
-            $product = Product::find($id);
-
-            // if not found display a 404 error
-            if (empty($product)) {
-                return response()->json(
-                    ["error" => "Product not found"],
-                    404 // 404 not found
-                );
-            }
-
-            // if found return it
-            return response()->json(compact('product'));
-        } catch (Throwable $error) {
-            // catch any errors and return it
-            return response()->json(["error" => $error], 500);
+            // Log the error and return
+            dd($error);
         }
     }
 
     /**
      * Show the form for editing the specified resource.
+     * 
      */
     public function edit(string $id) {
-        //
+        // Get the product by ID
+        $product = Product::find($id);
+
+        // If product is not found, return a 404 error
+        if (!$product) {
+            dd('Product not found');
+        }
+
+        // Return the view with the product data for editing
+        return view("Update", compact('product'));
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified product in database.
+     * 
      */
     public function update(Request $request, $id) {
         try {
-            // get the product from the database by id
+            // Get the product by ID
             $product = Product::find($id);
 
-            // if not found display a 404 error
-            if (empty($product)) {
-                return response()->json(
-                    ["error" => "Product not found"],
-                    404 // 404 not found
-                );
+            // If product is not found, return a 404 error
+            if (!$product) {
+                dd('Product not found');
             }
 
-            // update the product's data
+            // Update the product with the request data
             $product->update($request->all());
 
-            // return the product
-            return response()->json([
-                "message" => "Updated successfully"
-            ]);
+            // Redirect to the products index page
+            return redirect()->route('products.index');
         } catch (Throwable $error) {
-            // catch any errors and return it
-            return response()->json(["error" => $error], 500);
+            // Log the error and return
+            dd('Error updating product: ',  $error);
         }
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified product from database.
+     * 
      */
     public function destroy($id) {
         try {
-            // get the product from the database by id
+            // Get the product by ID
             $product = Product::find($id);
 
-            // if not found display a 404 error
-            if (empty($product)) {
-                return response()->json(
-                    ["error" => "Product not found"],
-                    404 // 404 not found
-                );
+            // If product is not found, return a 404 error response
+            if (!$product) {
+                dd('Product not found');
             }
 
-            // delete the product
+            // Delete the product
             $product->delete();
-            // return the product
-            return response()->json([
-                "message" => "Deleted successfully"
-            ]);
+
+            // Redirect to the products index page
+            return redirect()->route('products.index');
         } catch (Throwable $error) {
-            // catch any errors and return it
-            return response()->json(["error" => $error], 500);
+            // Log the error and return a response with an error message
+            dd('Error deleting product: ', $error);
         }
     }
 
@@ -188,81 +168,6 @@ class ProductController extends Controller {
                     "name" => "Driveway Monitor",
                     "price" => 59.99,
                     "description" => "Wireless driveway alarm with adjustable range and sensitivity."
-                ],
-                11 => [
-                    "name" => "Panic Button",
-                    "price" => 19.99,
-                    "description" => "Emergency panic button with silent alarm feature."
-                ],
-                12 => [
-                    "name" => "Glass Break Sensor",
-                    "price" => 34.99,
-                    "description" => "Acoustic glass break sensor with instant mobile alerts."
-                ],
-                13 => [
-                    "name" => "Gatekeeper System",
-                    "price" => 249.99,
-                    "description" => "Automated gate control system with remote operation."
-                ],
-                14 => [
-                    "name" => "Night Watch Floodlight",
-                    "price" => 79.99,
-                    "description" => "Motion-activated LED floodlight with energy-saving features."
-                ],
-                15 => [
-                    "name" => "Perimeter Defense Kit",
-                    "price" => 299.99,
-                    "description" => "Complete outdoor security system with cameras, lights, and sensors."
-                ],
-                16 => [
-                    "name" => "Surveillance Drone",
-                    "price" => 499.99,
-                    "description" => "Autonomous surveillance drone with live video feed and GPS tracking."
-                ],
-                17 => [
-                    "name" => "Biometric Door Handle",
-                    "price" => 139.99,
-                    "description" => "Fingerprint-activated door handle for secure access."
-                ],
-                18 => [
-                    "name" => "Solar-Powered Camera",
-                    "price" => 159.99,
-                    "description" => "Eco-friendly security camera with solar panel and battery backup."
-                ],
-                19 => [
-                    "name" => "Remote Control Siren",
-                    "price" => 59.99,
-                    "description" => "Loud siren with remote activation for deterrence and alerts."
-                ],
-                20 => [
-                    "name" => "Wireless Intercom System",
-                    "price" => 199.99,
-                    "description" => "Full-duplex intercom system with secure digital communication."
-                ],
-                21 => [
-                    "name" => "Outdoor Motion Lights",
-                    "price" => 69.99,
-                    "description" => "Weatherproof motion-activated lights for enhanced security."
-                ],
-                22 => [
-                    "name" => "Portable Alarm Kit",
-                    "price" => 79.99,
-                    "description" => "Compact and portable alarm system for travel and temporary installations."
-                ],
-                23 => [
-                    "name" => "Key Tracker",
-                    "price" => 14.99,
-                    "description" => "Bluetooth key finder with crowd-sourced location tracking."
-                ],
-                24 => [
-                    "name" => "Child Safety Monitor",
-                    "price" => 49.99,
-                    "description" => "Wearable child monitor with GPS tracking and safe zone alerts."
-                ],
-                25 => [
-                    "name" => "Pet Surveillance Camera",
-                    "price" => 99.99,
-                    "description" => "Interactive pet camera with treat dispenser and two-way audio."
                 ]
             ];
 
@@ -271,12 +176,10 @@ class ProductController extends Controller {
             }
 
             // return the product
-            return response()->json([
-                "message" => "Created successfully"
-            ]);
+            return redirect()->route('products.index');
         } catch (Throwable $error) {
             // catch any errors and return it
-            return response()->json(["error" => $error], 500);
+            return dd($error);
         }
     }
 }

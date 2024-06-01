@@ -12,7 +12,7 @@ return new class extends Migration {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->double('price', places: 2, unsigned: true);
+            $table->double('price', unsigned: true);
             $table->string('description')->nullable();
             $table->timestamps();
         });
