@@ -21,6 +21,13 @@ class ProductController extends Controller {
     }
 
     /**
+     * Show the form for creating a new resource.
+     */
+    public function create() {
+        //
+    }
+
+    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request) {
@@ -37,7 +44,6 @@ class ProductController extends Controller {
             return response()->json(["error" => $error], 500);
         }
     }
-
 
 
     /**
@@ -62,6 +68,13 @@ class ProductController extends Controller {
             // catch any errors and return it
             return response()->json(["error" => $error], 500);
         }
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id) {
+        //
     }
 
     /**

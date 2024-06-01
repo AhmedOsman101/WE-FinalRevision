@@ -18,8 +18,3 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
-Route::apiResource('products', ProductController::class);
-
-// DO NOT EDIT BELOW THIS LINE, IT'S FOR TESTING ONLY
-Route::post('products/seed', [ProductController::class, 'seed'])->name('seed');
